@@ -15,7 +15,7 @@ Please refer to the metadata file for details about all the inputs
 
 ### Acknowledgement
 
-This project is inspired by the two Azure Github Actions, developed by Microsoft Corporation
+This project is inspired by the these two Azure Github Actions developed by Microsoft Corporation
 
 * [https://github.com/Azure/setup-kubectl](https://github.com/Azure/setup-kubectl)
 * [https://github.com/Azure/setup-helm](https://github.com/Azure/setup-helm)
