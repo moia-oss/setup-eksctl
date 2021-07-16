@@ -4,7 +4,7 @@ inputs:
   version:
     description: 'Version of eksctl'
     required: true
-    default: '0.56.0'
+    default: 'latest'
 outputs:
   eksctl-path:
     description: 'Path to the cached eksctl binary'
