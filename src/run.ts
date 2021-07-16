@@ -64,7 +64,7 @@ export function getEksctlDownloadURL(version: string, arch: string): string {
 
         case 'Windows_NT':
         default:
-            return util.format('https://github.com/weaveworks/eksctl/releases/download/%s/eksctl_Windows_%s.tar.gz', version, arch);
+            return util.format('https://github.com/weaveworks/eksctl/releases/download/%s/eksctl_Windows_%s.zip', version, arch);
 
     }
 }
@@ -78,7 +78,11 @@ export async function downloadEksctl(version: string): Promise<string> {
     if (!cachedToolpath) {
         try {
             eksctlDownloadPath = await toolCache.downloadTool(getEksctlDownloadURL(version, arch));
-            extractedEksctlPath = await toolCache.extractTar(eksctlDownloadPath);
+            if(os.type() === 'Windows_NT') {
+                extractedEksctlPath = await toolCache.extractZip(eksctlDownloadPath);
+            } else {
+                extractedEksctlPath = await toolCache.extractTar(eksctlDownloadPath);
+            }
         } catch (exception) {
             if (exception instanceof toolCache.HTTPError && exception.httpStatusCode === 404) {
                 throw new Error(util.format("Eksctl '%s' for '%s' arch not found.", version, arch));

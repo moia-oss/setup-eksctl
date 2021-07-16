@@ -65,9 +65,9 @@ describe('Testing all functions in run file.', () => {
         ['amd64']
     ])('getEksctlDownloadURL() must return the URL to download %s eksctl for MacOS based systems', (arch) => {
         jest.spyOn(os, 'type').mockReturnValue('Darwin');
-        const eksctlLinuxUrl = util.format('https://github.com/weaveworks/eksctl/releases/download/0.57.0/eksctl_Darwin_%s.tar.gz', arch);
+        const eksctlDarwinUrl = util.format('https://github.com/weaveworks/eksctl/releases/download/0.57.0/eksctl_Darwin_%s.tar.gz', arch);
 
-        expect(run.getEksctlDownloadURL('0.57.0', arch)).toBe(eksctlLinuxUrl);
+        expect(run.getEksctlDownloadURL('0.57.0', arch)).toBe(eksctlDarwinUrl);
         expect(os.type).toBeCalled();
     });
 
@@ -77,9 +77,9 @@ describe('Testing all functions in run file.', () => {
         ['amd64']
     ])('getEksctlDownloadURL() must return the URL to download %s eksctl for Windows based systems', (arch) => {
         jest.spyOn(os, 'type').mockReturnValue('Windows_NT');
-        const eksctlLinuxUrl = util.format('https://github.com/weaveworks/eksctl/releases/download/0.57.0/eksctl_Windows_%s.tar.gz', arch);
+        const eksctlWindowsUrl = util.format('https://github.com/weaveworks/eksctl/releases/download/0.57.0/eksctl_Windows_%s.zip', arch);
 
-        expect(run.getEksctlDownloadURL('0.57.0', arch)).toBe(eksctlLinuxUrl);
+        expect(run.getEksctlDownloadURL('0.57.0', arch)).toBe(eksctlWindowsUrl);
         expect(os.type).toBeCalled();
     });
 
@@ -87,6 +87,23 @@ describe('Testing all functions in run file.', () => {
         jest.spyOn(toolCache, 'find').mockReturnValue('');
         jest.spyOn(toolCache, 'downloadTool').mockReturnValue(Promise.resolve('eksctlDownloadPath'));
         jest.spyOn(toolCache, 'extractTar').mockReturnValue(Promise.resolve('eksctlExtractedFolder'));
+        
+        jest.spyOn(toolCache, 'cacheDir').mockReturnValue(Promise.resolve('pathToCachedTool'));
+        jest.spyOn(os, 'type').mockReturnValue('Linux');
+        jest.spyOn(fs, 'chmodSync').mockImplementation(() => {});
+
+        expect(await run.downloadEksctl('0.57.0')).toBe(path.join('pathToCachedTool', 'eksctl'));
+        expect(toolCache.find).toBeCalledWith('eksctl', '0.57.0');
+        expect(toolCache.downloadTool).toBeCalled();
+        expect(toolCache.cacheDir).toBeCalled();
+        expect(os.type).toBeCalled();
+        expect(fs.chmodSync).toBeCalledWith(path.join('pathToCachedTool', 'eksctl'), '777');
+    });
+
+    test('downloadEksctl() must download eksctl zip archive, add it to github actions tool cache and return the path to extracted dir', async () => {
+        jest.spyOn(toolCache, 'find').mockReturnValue('');
+        jest.spyOn(toolCache, 'downloadTool').mockReturnValue(Promise.resolve('eksctlDownloadPath'));
+        jest.spyOn(toolCache, 'extractZip').mockReturnValue(Promise.resolve('eksctlExtractedFolder'));
         
         jest.spyOn(toolCache, 'cacheDir').mockReturnValue(Promise.resolve('pathToCachedTool'));
         jest.spyOn(os, 'type').mockReturnValue('Windows_NT');
