@@ -1,5 +1,5 @@
 name: 'Eksctl tool installer'
-description: 'Install a specific version of eksctl for AWS Elastic Kubernetes Service (EKS). You must provide a valid semantic version string like 0.56.0'
+description: 'Install a specific version of eksctl for AWS Elastic Kubernetes Service (EKS).'
 inputs: 
   version:
     description: 'Version of eksctl'
