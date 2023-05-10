@@ -78,7 +78,7 @@ export async function downloadEksctl(version: string): Promise<string> {
     if (!cachedToolpath) {
         try {
             eksctlDownloadPath = await toolCache.downloadTool(getEksctlDownloadURL(version, arch));
-            if(os.type() === 'Windows_NT') {
+            if (os.type() === 'Windows_NT') {
                 extractedEksctlPath = await toolCache.extractZip(eksctlDownloadPath);
             } else {
                 extractedEksctlPath = await toolCache.extractTar(eksctlDownloadPath);
@@ -110,7 +110,7 @@ export async function run() {
     let cachedEksctlPath = await downloadEksctl(version);
 
     core.addPath(path.dirname(cachedEksctlPath));
-            
+
     console.log(`Eksctl version: '${version}' has been cached at ${cachedEksctlPath}`);
     core.setOutput('eksctl-path', cachedEksctlPath);
 }
