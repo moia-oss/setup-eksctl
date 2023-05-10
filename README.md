@@ -23,3 +23,15 @@ This project is inspired by the these two Azure Github Actions developed by Micr
 Thanks to Weaveworks for creating `eksctl`
 
 * [https://github.com/weaveworks/eksctl](https://github.com/weaveworks/eksctl)
+
+
+# Releasing
+
+Tags are released automatically by a Github Action.
+
+So in order to release just create a tag like this:
+```
+git tag 0.[n] -m "your message"
+# This will only work if your tag includes a message
+git push --follow-tags
+```
