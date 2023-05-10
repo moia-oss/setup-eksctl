@@ -24,7 +24,6 @@ Thanks to Weaveworks for creating `eksctl`
 
 * [https://github.com/weaveworks/eksctl](https://github.com/weaveworks/eksctl)
 
-
 # Releasing
 
 Tags are released automatically by a Github Action.
@@ -35,3 +34,5 @@ git tag 0.[n] -m "your message"
 # This will only work if your tag includes a message
 git push --follow-tags
 ```
+
+or use the GitHub UI to create a tag. The `deploy.yaml` workflow force pushes to the major version tag (ex: v1.0.0 -> v1)
