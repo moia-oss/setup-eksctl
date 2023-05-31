@@ -57,14 +57,14 @@ export async function getLatestEksctlVersion(): Promise<string> {
 export function getEksctlDownloadURL(version: string, arch: string): string {
     switch (os.type()) {
         case 'Linux':
-            return util.format('https://github.com/weaveworks/eksctl/releases/download/%s/eksctl_Linux_%s.tar.gz', version, arch);
+            return util.format('https://github.com/weaveworks/eksctl/releases/download/v%s/eksctl_Linux_%s.tar.gz', version, arch);
 
         case 'Darwin':
-            return util.format('https://github.com/weaveworks/eksctl/releases/download/%s/eksctl_Darwin_%s.tar.gz', version, arch);
+            return util.format('https://github.com/weaveworks/eksctl/releases/download/v%s/eksctl_Darwin_%s.tar.gz', version, arch);
 
         case 'Windows_NT':
         default:
-            return util.format('https://github.com/weaveworks/eksctl/releases/download/%s/eksctl_Windows_%s.zip', version, arch);
+            return util.format('https://github.com/weaveworks/eksctl/releases/download/v%s/eksctl_Windows_%s.zip', version, arch);
 
     }
 }
