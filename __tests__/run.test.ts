@@ -65,7 +65,7 @@ describe('Testing all functions in run file.', () => {
         ['amd64']
     ])('getEksctlDownloadURL() must return the URL to download %s eksctl for MacOS based systems', (arch) => {
         jest.spyOn(os, 'type').mockReturnValue('Darwin');
-        const eksctlDarwinUrl = util.format('https://github.com/weaveworks/eksctl/releases/download/0.57.0/eksctl_Darwin_%s.tar.gz', arch);
+        const eksctlDarwinUrl = util.format('https://github.com/weaveworks/eksctl/releases/download/v0.57.0/eksctl_Darwin_%s.tar.gz', arch);
 
         expect(run.getEksctlDownloadURL('0.57.0', arch)).toBe(eksctlDarwinUrl);
         expect(os.type).toBeCalled();
@@ -77,7 +77,7 @@ describe('Testing all functions in run file.', () => {
         ['amd64']
     ])('getEksctlDownloadURL() must return the URL to download %s eksctl for Windows based systems', (arch) => {
         jest.spyOn(os, 'type').mockReturnValue('Windows_NT');
-        const eksctlWindowsUrl = util.format('https://github.com/weaveworks/eksctl/releases/download/0.57.0/eksctl_Windows_%s.zip', arch);
+        const eksctlWindowsUrl = util.format('https://github.com/weaveworks/eksctl/releases/download/v0.57.0/eksctl_Windows_%s.zip', arch);
 
         expect(run.getEksctlDownloadURL('0.57.0', arch)).toBe(eksctlWindowsUrl);
         expect(os.type).toBeCalled();
