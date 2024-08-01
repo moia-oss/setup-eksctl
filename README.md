@@ -1,5 +1,7 @@
 # Setup Eksctl
 
+***THIS PROJECT IS ARCHIVED AS OF 01.08.2024, DO NOT USE IT***
+
 ***Install a specific eksctl binary version on your Github Actions runner***
 
 You may use this action in your github action workflow to define which version of eksctl will be used. `version` is a semantic version string like `0.57.0`. You can also use the keyword `latest` (default) to use the latest stable release of `eksctl`. Releases of `eksctl` are listed [here](https://github.com/weaveworks/eksctl/releases).
